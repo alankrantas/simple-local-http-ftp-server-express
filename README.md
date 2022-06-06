@@ -1,12 +1,12 @@
 # Local HTTP/FTP Test Server with Node.js/Express
 
-A simple local HTTP/FTP test server that can be run on Node.js.
+A simple HTTP/FTP local test server that can be run on Node.js.
 
-The HTTP services (GET, POST, POST with file) return whatever you send them and print them in the console. The FTP service allows you to access any files under the ```./files``` directory.
+The HTTP services (GET, POST with text/JSON/XML, POST with file) return whatever you send them. The FTP service allows you to access any files under the ```./files``` directory. Both would also print the content of payload in the console.
 
 ## Install
 
-Install Node.js and download/unzip this project:
+Install [Node.js](https://nodejs.org/en/download/) and download/unzip this project, then install the dependencies:
 
 ```bash
 npm install
@@ -14,21 +14,21 @@ npm install
 
 ## Run Server
 
-Run the http server:
+Run the http server (using default host/port or specify them):
 
 ```bash
 node http.js
 node http.js 127.0.0.1 3000
 ```
 
-Run the FTP server:
+Run the FTP server (using default host/port or specify them):
 
 ```bash
 node ftp.js
 node ftp.js 127.0.0.1 21
 ```
 
-Or start both with default settings:
+Or start both with default host/ports:
 
 ```bash
 npm start
@@ -51,7 +51,7 @@ The service would return the QueryString object in ```application/json```.
 http://localhost:3000/post
 ```
 
-The service would return the payload text or object in the same content type.
+You can use HTTP clients like [Postman](https://www.postman.com/downloads/) or [Insomnia](https://insomnia.rest/download). The service would return the payload  in the same content type (```text/plain```, ```application/json``` or ```application/xml```).
 
 ### HTTP POST with Multipart (File)
 
