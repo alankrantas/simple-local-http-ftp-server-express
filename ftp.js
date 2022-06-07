@@ -14,20 +14,15 @@ const ftpServer = new FtpSrv({
 ftpServer.on("login", ({ connection, username, password }, resolve, reject) => {
 
     connection.on("RETR", (error, filePath) => {
-        if (error) {
-            console.log(`File download error: ${error}`);
-        } else {
-            console.log(`File downloaded: ${filePath}`);
-        }
+        if (error) console.log(`File download error: ${error}`);
+        else console.log(`File downloaded: ${filePath}`);
     });
 
     connection.on("STOR", (error, filePath) => {
-        if (error) {
-            console.log(`File upload error: ${error}`);
-        } else {
-            console.log(`File uploaded: ${filePath}`);
-        }
+        if (error) console.log(`File upload error: ${error}`);
+        else console.log(`File uploaded: ${filePath}`);
     });
+    
     if (username === user && password === pw) {
         return resolve({ root: "./files" });
     }
