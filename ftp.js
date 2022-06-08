@@ -8,7 +8,7 @@ const port = process.argv[3] || 21;
 
 const ftpServer = new FtpSrv({
     url: `ftp://${host}:${port}`,
-    anonymous: true
+    anonymous: false
 });
 
 ftpServer.on("login", ({ connection, username, password }, resolve, reject) => {
