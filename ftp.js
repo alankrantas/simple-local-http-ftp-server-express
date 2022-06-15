@@ -8,6 +8,9 @@ const port = process.argv[3] || 21;
 
 const ftpServer = new FtpSrv({
     url: `ftp://${host}:${port}`,
+    pasv_url: `ftp://${host}`,
+    pasv_min: 60000,
+    pasv_max: 60009,
     anonymous: false
 });
 
