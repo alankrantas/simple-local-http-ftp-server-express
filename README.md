@@ -18,7 +18,7 @@ Run the http server (using default host/port or specify them):
 
 ```bash
 node http.js
-node http.js 127.0.0.1 3000
+node http.js 127.0.0.1 8080
 ```
 
 Run the FTP server (using default host/port or specify them):
@@ -39,8 +39,8 @@ npm start
 ### HTTP GET with QueryString
 
 ```
-http://localhost:3000/get
-http://localhost:3000/get?params1=value1&params2=value2
+http://localhost:8080/get
+http://localhost:8080/get?params1=value1&params2=value2
 ```
 
 The service would return the QueryString object in ```application/json```.
@@ -48,7 +48,7 @@ The service would return the QueryString object in ```application/json```.
 ### HTTP POST with Text/JSON/XML
 
 ```
-http://localhost:3000/post
+http://localhost:8080/post
 ```
 
 You can use HTTP clients like [Postman](https://www.postman.com/downloads/) or [Insomnia](https://insomnia.rest/download). The service would return the payload  in the same content type (```text/plain```, ```application/json``` or ```application/xml```).
@@ -58,10 +58,18 @@ You can use HTTP clients like [Postman](https://www.postman.com/downloads/) or [
 The requester has to use POST and set the ```Content-Type``` header to ```multipart/form-data```. The payload can be either a file or a text with any field name. Be noted that *only* the first text or file field will be read.
 
 ```
-http://localhost:3000/file
+http://localhost:8080/post-file
 ```
 
 The service would return the content of the text or file in text/plain.
+
+### HTTP Static File Server
+
+The server also serves static files under ```/files``` directory:
+
+```
+http://localhost:8080/files/<filename>
+```
 
 ### FTP
 
