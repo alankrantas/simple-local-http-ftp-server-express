@@ -1,5 +1,6 @@
-const express = require("express")
+const express = require("express");
 const app = express();
+
 app.use(express.text());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -9,6 +10,9 @@ app.use(xmlparser());
 
 const multer = require("multer");
 const upload = multer();
+
+const morgan = require("morgan");
+app.use(morgan("dev"));
 
 app.get("/get", async function (req, res) {
     console.log("Invoking /get...");
@@ -29,7 +33,7 @@ app.post("/post", async function (req, res) {
     res.send(req.body);
 });
 
-app.post("/file", upload.any(), async function (req, res) {
+app.post("/post-file", upload.any(), async function (req, res) {
     console.log("Invoking /file...");
     req.setEncoding("utf8");
     if (req.get("Authorization")) console.log(`- authorization: ${req.get("Authorization")}`);
@@ -61,6 +65,8 @@ app.post("/file", upload.any(), async function (req, res) {
     res.send(data);
 });
 
+app.use("/files", express.static("files"));
+
 const host = process.argv[2] || "localhost";
 const port = process.argv[3] || 8080;
 app.listen(
@@ -68,8 +74,9 @@ app.listen(
     host,
     () => {
         console.log("HTTP test server started...");
-        console.log(`  http://${host}:${port}/get  | GET with QueryString`);
-        console.log(`  http://${host}:${port}/post | POST with text/JSON/XML`);
-        console.log(`  http://${host}:${port}/file | POST with multipart/file`);
+        console.log(`  http://${host}:${port}/get       | GET with QueryString`);
+        console.log(`  http://${host}:${port}/post      | POST with text/JSON/XML`);
+        console.log(`  http://${host}:${port}/post-file | POST with multipart/file`);
+        console.log(`  http://${host}:${port}/files     | serve static files`);
     }
 );
