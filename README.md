@@ -82,7 +82,7 @@ ftp://user:pw@localhost:21/test.txt
 You can test this with ```curl``` (Windows users can install Git and use Git Bash console for this):
 
 ```bash
-curl 'ftp://user:pw@localhost:21/test.txt' > './test.txt'
+curl ftp://user:pw@localhost:21/test.txt -v
 ```
 
 You can put whatever files under ```./files``` and they will show up in the FTP server.
