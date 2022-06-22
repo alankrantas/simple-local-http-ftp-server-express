@@ -1,4 +1,8 @@
 const FtpSrv = require("ftp-srv");
+const { Netmask } = require("netmask");
+const { networkInterfaces } = require('os');
+
+const nets = networkInterfaces();
 
 const user = "user";
 const pw = "pw";
@@ -6,12 +10,34 @@ const pw = "pw";
 const host = process.argv[2] || "localhost";
 const port = process.argv[3] || 21;
 
+const getNetworks = () => {
+    let networks = {};
+    for (const name of Object.keys(nets)) {
+        for (const net of nets[name]) {
+            if (net.family === 'IPv4' && !net.internal) {
+                networks[net.address + "/24"] = net.address
+            }
+        }
+    }
+    return networks;
+};
+
+const resolverFunction = (ip) => {
+    const networks = getNetworks();
+    for (const network in networks) {
+        if (new Netmask(network).contains(ip)) {
+            return networks[network];
+        }
+    }
+    return "0.0.0.0";
+};
+
 const ftpServer = new FtpSrv({
     url: `ftp://${host}:${port}`,
-    pasv_url: `ftp://${host}`,
+    pasv_url: resolverFunction,
     pasv_min: 60000,
     pasv_max: 60009,
-    anonymous: false
+    anonymous: true
 });
 
 ftpServer.on("login", ({ connection, username, password }, resolve, reject) => {
@@ -25,7 +51,7 @@ ftpServer.on("login", ({ connection, username, password }, resolve, reject) => {
         if (error) console.log(`File upload error: ${error}`);
         else console.log(`File uploaded: ${filePath}`);
     });
-    
+
     if (username === user && password === pw) {
         return resolve({ root: "./files" });
     }
