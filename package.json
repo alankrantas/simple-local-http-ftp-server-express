@@ -16,6 +16,7 @@
     "express-xml-bodyparser": "^0.3.0",
     "ftp-srv": "^4.6.1",
     "morgan": "^1.10.0",
-    "multer": "^1.4.4"
+    "multer": "^1.4.4",
+    "netmask": "^2.0.2"
   }
 }
