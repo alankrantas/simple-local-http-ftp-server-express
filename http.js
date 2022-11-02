@@ -40,7 +40,7 @@ app.post("/post-file", upload.any(), async function (req, res) {
     let contentType = req.get("content-type");
     console.log(`- content type: ${contentType}`);
     let data = null;
-    if (req.files.length > 0) {
+    if (req.files?.length > 0) {
         try {
             const file = req.files[0];
             console.log(`- field name: ${file.fieldname}`);

@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"node http.js\" \"node ftp.js\""
+    "start": "concurrently \"node http.js\" \"node ftp.js\"",
+    "upgrade-all": "npx npm-check-updates && npm i && npm prune"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +18,7 @@
     "ftp-srv": "^4.6.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.4",
-    "netmask": "^2.0.2"
+    "netmask": "^2.0.2",
+    "npm-check-updates": "^16.3.16"
   }
 }
